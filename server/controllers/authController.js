@@ -148,3 +148,11 @@ export const getCurrentUser = async (req, res) => {
         });
     }
 };
+
+
+export const adminTest = async (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "Welcome Admin! You have access to this resource."
+    });
+};
