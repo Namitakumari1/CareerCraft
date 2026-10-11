@@ -91,21 +91,138 @@ export const createApplication = async (req, res) => {
 
 
 // 2. Get all applications belonging to the logged-in user
+// export const getApplications = async (req, res) => {
+//     try {
+//         const applications = await Application.find({
+//             user: req.user._id
+//         })
+//             .populate("resume", "title template")
+//             .sort({ createdAt: -1 });
+
+//         return res.status(200).json({
+//             success: true,
+//             count: applications.length,
+//             applications
+//         });
+//     } catch (error) {
+//         console.error("Get applications error:", error.message);
+
+//         return res.status(500).json({
+//             success: false,
+//             message: "Server error while fetching applications"
+//         });
+//     }
+// };
+
+
 export const getApplications = async (req, res) => {
     try {
-        const applications = await Application.find({
-            user: req.user._id
-        })
-            .populate("resume", "title template")
-            .sort({ createdAt: -1 });
+        const userId = req.user._id;
+
+        // Read query parameters
+        const {
+            search = "",
+            status,
+            page = "1",
+            limit = "5"
+        } = req.query;
+
+        // Validate pagination parameters
+        const pageNumber = Number(page);
+        const limitNumber = Number(limit);
+
+        if (
+            !/^[1-9]\d*$/.test(page) ||
+            !/^[1-9]\d*$/.test(limit) ||
+            !Number.isSafeInteger(pageNumber) ||
+            !Number.isSafeInteger(limitNumber) ||
+            limitNumber > 50
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Page must be positive and limit must be between 1 and 50"
+            });
+        }
+
+        // Validate status filter
+        const allowedStatuses = [
+            "Wishlist",
+            "Applied",
+            "Interview",
+            "Offer",
+            "Rejected"
+        ];
+
+        if (status && !allowedStatuses.includes(status)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid application status"
+            });
+        }
+
+        // Build a query restricted to the logged-in user
+        const filter = {
+            user: userId
+        };
+
+        if (status) {
+            filter.status = status;
+        }
+
+        if (search.trim()) {
+            // Escape special regex characters in user input
+            const safeSearch = search.trim().replace(
+                /[.*+?^${}()|[\]\\]/g,
+                "\\$&"
+            );
+
+            filter.$or = [
+                {
+                    company: {
+                        $regex: safeSearch,
+                        $options: "i"
+                    }
+                },
+                {
+                    jobTitle: {
+                        $regex: safeSearch,
+                        $options: "i"
+                    }
+                }
+            ];
+        }
+
+        const skip = (pageNumber - 1) * limitNumber;
+
+        // Fetch records and count matches concurrently
+        const [applications, totalApplications] =
+            await Promise.all([
+                Application.find(filter)
+                    .populate("resume", "title template")
+                    .sort({ createdAt: -1 })
+                    .skip(skip)
+                    .limit(limitNumber),
+
+                Application.countDocuments(filter)
+            ]);
 
         return res.status(200).json({
             success: true,
-            count: applications.length,
-            applications
+            applications,
+            pagination: {
+                currentPage: pageNumber,
+                pageSize: limitNumber,
+                totalApplications,
+                totalPages: Math.ceil(
+                    totalApplications / limitNumber
+                )
+            }
         });
     } catch (error) {
-        console.error("Get applications error:", error.message);
+        console.error(
+            "Get applications error:",
+            error.message
+        );
 
         return res.status(500).json({
             success: false,
