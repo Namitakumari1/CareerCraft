@@ -44,10 +44,28 @@ const applicationSchema = new mongoose.Schema(
             default: ""
         },
 
+
         jobUrl: {
             type: String,
             trim: true,
-            default: ""
+            default: "",
+            maxlength: 500,
+            validate: {
+                validator: (value) => {
+                    if (!value) return true;
+
+                    try {
+                        const url = new URL(value);
+                        return (
+                            url.protocol === "http:" ||
+                            url.protocol === "https:"
+                        );
+                    } catch {
+                        return false;
+                    }
+                },
+                message: "Job URL must be a valid HTTP or HTTPS URL"
+            }
         },
 
         // Application progress
@@ -66,12 +84,22 @@ const applicationSchema = new mongoose.Schema(
 
         appliedDate: {
             type: Date,
-            default: null
+            default: null,
+            validate: {
+                validator: (value) =>
+                    value == null || !Number.isNaN(value.getTime()),
+                message: "Invalid application date"
+            }
         },
 
         interviewDate: {
             type: Date,
-            default: null
+            default: null,
+            validate: {
+                validator: (value) =>
+                    value == null || !Number.isNaN(value.getTime()),
+                message: "Invalid interview date"
+            }
         },
 
         // Optional compensation details

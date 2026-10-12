@@ -90,31 +90,6 @@ export const createApplication = async (req, res) => {
 };
 
 
-// 2. Get all applications belonging to the logged-in user
-// export const getApplications = async (req, res) => {
-//     try {
-//         const applications = await Application.find({
-//             user: req.user._id
-//         })
-//             .populate("resume", "title template")
-//             .sort({ createdAt: -1 });
-
-//         return res.status(200).json({
-//             success: true,
-//             count: applications.length,
-//             applications
-//         });
-//     } catch (error) {
-//         console.error("Get applications error:", error.message);
-
-//         return res.status(500).json({
-//             success: false,
-//             message: "Server error while fetching applications"
-//         });
-//     }
-// };
-
-
 export const getApplications = async (req, res) => {
     try {
         const userId = req.user._id;
