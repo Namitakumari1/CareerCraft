@@ -1,0 +1,10 @@
+@import "../Register/Register.css";
+
+.auth-success {
+    padding: 12px;
+    border-radius: 8px;
+    background: #e8f6ef;
+    color: #21875a;
+    font-size: 13px;
+    line-height: 1.6;
+}

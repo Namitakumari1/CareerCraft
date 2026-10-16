@@ -56,7 +56,15 @@ export const registerUser = async (req, res) => {
     } catch (error) {
         console.error("Registration error:", error.message);
 
-        res.status(500).json({
+        // MongoDB duplicate-key error
+        if (error.code === 11000) {
+            return res.status(409).json({
+                success: false,
+                message: "An account with this email already exists"
+            });
+        }
+
+        return res.status(500).json({
             success: false,
             message: "Server error during registration"
         });
