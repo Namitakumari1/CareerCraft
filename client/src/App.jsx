@@ -7,6 +7,7 @@ import Login from "./pages/Login/Login.jsx";
 import { authApi } from "./services/api";
 import "./App.css";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
+import ResumeBuilder from "./pages/ResumeBuilder/ResumeBuilder.jsx";
 
 function DashboardPlaceholder() {
   const handleLogout = () => {
@@ -99,7 +100,7 @@ function App() {
 
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/resume-builder" element={<ComingSoon title="Resume Builder" />}          />
+          <Route path="/resume-builder" element={<ResumeBuilder />} />         
           <Route path="/applications" element={<Applications />}
           />
         </Route>
