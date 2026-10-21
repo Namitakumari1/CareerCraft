@@ -1,4 +1,5 @@
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
+import Applications from "./pages/Applications/Applications.jsx";
 import { BrowserRouter, Navigate, Route, Routes, Link, } from "react-router-dom";
 import Home from "./pages/Home/Home.jsx";
 import Register from "./pages/Register/Register.jsx";
@@ -97,17 +98,9 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route element={<ProtectedRoute />}>
-          <Route
-            path="/dashboard"
-            element={<Dashboard />}
-          />
-          <Route
-            path="/resume-builder"
-            element={<ComingSoon title="Resume Builder" />}
-          />
-          <Route
-            path="/applications"
-            element={<ComingSoon title="Job Applications" />}
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/resume-builder" element={<ComingSoon title="Resume Builder" />}          />
+          <Route path="/applications" element={<Applications />}
           />
         </Route>
 

@@ -1,0 +1,460 @@
+
+.applications-page {
+    min-height: 100vh;
+    background: #f8f8fc;
+    color: #191a35;
+}
+
+.applications-header {
+    min-height: 76px;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid #e7e7f0;
+    background: #ffffff;
+}
+
+.applications-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #191a35;
+    font-size: 20px;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+.applications-brand .brand-mark {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+}
+
+.applications-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.applications-nav a {
+    color: #55566f;
+    font-size: 13px;
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.applications-logout,
+.application-secondary-button {
+    min-height: 40px;
+    padding: 0 15px;
+    border: 1px solid #e1e1ee;
+    border-radius: 10px;
+    background: white;
+    color: #34354f;
+    cursor: pointer;
+}
+
+.applications-content {
+    width: min(1200px, 92%);
+    margin: 0 auto;
+    padding: 44px 0 60px;
+}
+
+.applications-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.applications-eyebrow {
+    margin: 0 0 10px;
+    color: #6257e8;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+}
+
+.applications-heading h1 {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 38px);
+    letter-spacing: -1.2px;
+}
+
+.applications-subtitle,
+.application-section-heading p {
+    color: #777990;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.applications-total {
+    min-width: 145px;
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px solid #e7e7f1;
+    border-radius: 14px;
+    background: white;
+}
+
+.applications-total span {
+    color: #777990;
+    font-size: 12px;
+}
+
+.applications-total strong {
+    font-size: 28px;
+}
+
+.application-form-card,
+.application-list-card {
+    margin-top: 22px;
+    padding: 26px;
+    border: 1px solid #e7e7f1;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 10px 35px #33345d08;
+}
+
+.application-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.application-section-heading h2 {
+    margin: 0;
+    font-size: 19px;
+}
+
+.application-section-heading p {
+    margin: 7px 0 0;
+}
+
+.application-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.application-field {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.application-field-full {
+    grid-column: 1 / -1;
+}
+
+.application-field label {
+    color: #34354f;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.application-field input,
+.application-field select,
+.application-field textarea,
+.application-toolbar input,
+.application-toolbar select {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 13px;
+    border: 1px solid #dedfec;
+    border-radius: 10px;
+    outline: none;
+    background: white;
+    color: #191a35;
+    font: inherit;
+    font-size: 13px;
+}
+
+.application-field input,
+.application-field select {
+    min-height: 44px;
+}
+
+.application-field textarea {
+    resize: vertical;
+}
+
+.application-field input:focus,
+.application-field select:focus,
+.application-field textarea:focus,
+.application-toolbar input:focus,
+.application-toolbar select:focus {
+    border-color: #6257e8;
+    box-shadow: 0 0 0 3px #6257e81c;
+}
+
+.application-primary-button {
+    min-height: 44px;
+    margin-top: 22px;
+    padding: 0 20px;
+    border: 0;
+    border-radius: 10px;
+    background: #6257e8;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.application-primary-button:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+.application-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.application-search {
+    flex: 1;
+    display: flex;
+    gap: 8px;
+}
+
+.application-search button {
+    padding: 0 18px;
+    border: 0;
+    border-radius: 10px;
+    background: #6257e8;
+    color: white;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.application-toolbar > select {
+    width: 180px;
+    min-height: 44px;
+}
+
+.application-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.application-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 13px;
+}
+
+.application-table th {
+    padding: 14px 12px;
+    border-bottom: 1px solid #e7e7f0;
+    color: #777990;
+    font-size: 10px;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.application-table td {
+    padding: 16px 12px;
+    border-bottom: 1px solid #eeeeF5;
+    vertical-align: middle;
+}
+
+.application-job-title {
+    display: block;
+    margin-top: 6px;
+    color: #777990;
+    font-size: 12px;
+}
+
+.application-status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #eeecff;
+    color: #6257e8;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.status-offer {
+    background: #e8f6ef;
+    color: #21875a;
+}
+
+.status-rejected {
+    background: #fff0f1;
+    color: #c52e43;
+}
+
+.status-interview {
+    background: #fff4df;
+    color: #976100;
+}
+
+.application-row-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.application-row-actions button {
+    padding: 6px 0;
+    border: 0;
+    background: transparent;
+    color: #6257e8;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.application-row-actions .application-delete-button {
+    color: #c52e43;
+}
+
+.application-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 22px;
+    color: #777990;
+    font-size: 12px;
+}
+
+.application-pagination > div {
+    display: flex;
+    gap: 8px;
+}
+
+.application-pagination button {
+    min-height: 36px;
+    padding: 0 13px;
+    border: 1px solid #e1e1ee;
+    border-radius: 9px;
+    background: white;
+    color: #34354f;
+    cursor: pointer;
+}
+
+.application-pagination button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.application-empty-state {
+    padding: 45px 20px;
+    text-align: center;
+    color: #777990;
+    font-size: 13px;
+}
+
+.application-empty-state h3 {
+    margin: 12px 0 6px;
+    color: #191a35;
+    font-size: 16px;
+}
+
+.application-empty-state p {
+    line-height: 1.7;
+}
+
+.application-empty-icon {
+    color: #6257e8;
+    font-size: 30px;
+}
+
+.applications-notice,
+.applications-error {
+    padding: 12px 15px;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.applications-notice {
+    background: #e8f6ef;
+    color: #21875a;
+}
+
+.applications-error {
+    background: #fff0f1;
+    color: #c52e43;
+}
+
+@media (max-width: 700px) {
+    .applications-header {
+        padding: 0 4%;
+    }
+
+    .applications-content {
+        width: 92%;
+        padding-top: 30px;
+    }
+
+    .applications-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .applications-total {
+        width: 100%;
+    }
+
+    .application-form-card,
+    .application-list-card {
+        padding: 18px;
+    }
+
+    .application-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .application-field-full {
+        grid-column: auto;
+    }
+
+    .application-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .application-toolbar > select {
+        width: 100%;
+    }
+
+    .application-pagination {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 420px) {
+    .applications-brand {
+        font-size: 17px;
+    }
+
+    .applications-nav {
+        gap: 10px;
+    }
+
+    .applications-nav a,
+    .applications-logout {
+        font-size: 12px;
+    }
+
+    .application-search button {
+        padding: 0 12px;
+    }
+}
