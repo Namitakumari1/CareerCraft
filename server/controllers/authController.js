@@ -6,8 +6,11 @@ export const registerUser = async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
+        const normalizedName = name?.trim();
+        const normalizedEmail = email?.trim().toLowerCase();
+
         // 1. Validate required fields
-        if (!name || !email || !password) {
+        if (!normalizedName || !normalizedEmail || !password) {
             return res.status(400).json({
                 success: false,
                 message: "Name, email and password are required"
@@ -23,7 +26,9 @@ export const registerUser = async (req, res) => {
         }
 
         // 3. Check whether user already exists
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({
+            email: normalizedEmail
+        });
 
         if (existingUser) {
             return res.status(409).json({
@@ -37,8 +42,8 @@ export const registerUser = async (req, res) => {
 
         // 5. Create user
         const user = await User.create({
-            name,
-            email,
+            name: normalizedName,
+            email: normalizedEmail,
             password: hashedPassword
         });
 
@@ -75,9 +80,10 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
+        const normalizedEmail = email?.trim().toLowerCase();
 
         // 1. Validate required fields
-        if (!email || !password) {
+        if (!normalizedEmail || !password) {
             return res.status(400).json({
                 success: false,
                 message: "Email and password are required"
@@ -85,7 +91,9 @@ export const loginUser = async (req, res) => {
         }
 
         // 2. Find user by email
-        const user = await User.findOne({ email });
+        const user = await User.findOne({
+            email: normalizedEmail
+        });
 
         if (!user) {
             return res.status(401).json({
@@ -157,6 +165,68 @@ export const getCurrentUser = async (req, res) => {
     }
 };
 
+// Update the logged-in user's profile
+export const updateCurrentUser = async (req, res) => {
+    try {
+        const { name, email } = req.body;
+
+        const normalizedName = name?.trim();
+        const normalizedEmail = email?.trim().toLowerCase();
+
+        if (!normalizedName || !normalizedEmail) {
+            return res.status(400).json({
+                success: false,
+                message: "Name and email are required"
+            });
+        }
+
+        const existingUser = await User.findOne({
+            email: normalizedEmail,
+            _id: { $ne: req.user._id }
+        });
+
+        if (existingUser) {
+            return res.status(409).json({
+                success: false,
+                message: "This email is already in use"
+            });
+        }
+
+        const user = await User.findByIdAndUpdate(
+            req.user._id,
+            {
+                $set: {
+                    name: normalizedName,
+                    email: normalizedEmail
+                }
+            },
+            {
+                returnDocument: "after",
+                runValidators: true
+            }
+        ).select("-password");
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+            user
+        });
+    } catch (error) {
+        console.error("Update profile error:", error.message);
+
+        return res.status(500).json({
+            success: false,
+            message: "Server error while updating profile"
+        });
+    }
+};
 
 export const adminTest = async (req, res) => {
     res.status(200).json({

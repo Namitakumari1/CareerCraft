@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 });
 
 // Server
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 7000;
 
 app.listen(PORT, () => {
     console.log(`CareerCraft server is running on port ${PORT}`);

@@ -1,8 +1,8 @@
 
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { applicationApi, authApi } from "../../services/api";
+import { applicationApi } from "../../services/api";
 import "./Applications.css";
+import Navbar from "../../components/Navbar.jsx";
 
 const PAGE_SIZE = 5;
 
@@ -235,16 +235,6 @@ function Applications() {
             await applicationApi.remove(id);
             setNotice("Application deleted successfully.");
 
-            // If this was the last item on a later page,
-            // move back one page.
-
-            // if (applications.length === 1 && page > 1) {
-            //     setPage((previous) => previous - 1);
-            // } else {
-            //     // Changing a state variable forces a new request.
-            //     // Refresh by resetting and reapplying the current page.
-            //     setPage((previous) => previous === 1 ? 0 : previous);
-            // }
             if (applications.length === 1 && page > 1) {
                 setPage((previous) => previous - 1);
             } else {
@@ -255,11 +245,6 @@ function Applications() {
         }
     };
 
-    const handleLogout = () => {
-        authApi.logout();
-        window.location.replace("/login");
-    };
-
     const totalPages = Math.max(
         1,
         pagination.totalPages || 1
@@ -267,24 +252,7 @@ function Applications() {
 
     return (
         <main className="applications-page">
-            <header className="applications-header">
-                <Link className="applications-brand" to="/dashboard">
-                    <span className="brand-mark">C</span>
-                    CareerCraft
-                </Link>
-
-                <nav className="applications-nav">
-                    <Link to="/dashboard">Dashboard</Link>
-
-                    <button
-                        type="button"
-                        className="applications-logout"
-                        onClick={handleLogout}
-                    >
-                        Log out
-                    </button>
-                </nav>
-            </header>
+            <Navbar />
 
             <section className="applications-content">
                 <div className="applications-heading">

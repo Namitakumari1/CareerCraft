@@ -1,8 +1,8 @@
-
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { authApi, dashboardApi } from "../../services/api";
+import { Link } from "react-router-dom";
+import { dashboardApi } from "../../services/api";
 import "./Dashboard.css";
+import Navbar from "../../components/Navbar.jsx";
 
 const initialSummary = {
     totalResumes: 0,
@@ -19,8 +19,7 @@ const initialSummary = {
 };
 
 function Dashboard() {
-    const navigate = useNavigate();
-
+    
     const [summary, setSummary] = useState(initialSummary);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -60,30 +59,14 @@ function Dashboard() {
         };
     }, []);
 
-    const handleLogout = () => {
-        authApi.logout();
-        navigate("/login", { replace: true });
-    };
-
     const statusEntries = Object.entries(
         summary.applicationsByStatus
     );
 
     return (
         <main className="dashboard-page">
-            <header className="dashboard-header">
-                <Link className="dashboard-brand" to="/">
-                    <span className="brand-mark">C</span>
-                    CareerCraft
-                </Link>
-
-                <button
-                    className="dashboard-logout"
-                    onClick={handleLogout}
-                >
-                    Log out
-                </button>
-            </header>
+            
+            <Navbar />
 
             <section className="dashboard-content">
                 <div className="dashboard-welcome">

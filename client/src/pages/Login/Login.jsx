@@ -35,7 +35,9 @@ function Login() {
             // Calls POST /api/auth/login and saves the JWT
             await authApi.login(form);
 
-            navigate("/dashboard", { replace: true });
+            const destination = location.state?.from?.pathname || "/dashboard";
+            navigate(destination, { replace: true });
+            
         } catch (err) {
             setError(err.message);
         } finally {

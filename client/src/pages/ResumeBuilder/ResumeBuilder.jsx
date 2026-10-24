@@ -1,8 +1,7 @@
-
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { resumeApi, authApi } from "../../services/api";
+import { resumeApi } from "../../services/api";
 import "./ResumeBuilder.css";
+import Navbar from "../../components/Navbar.jsx";
 
 const createEmptyResume = () => ({
     title: "",
@@ -201,33 +200,23 @@ function ResumeBuilder() {
         }
     };
 
-    const handleLogout = () => {
-        authApi.logout();
-        window.location.replace("/login");
-    };
-
     if (loading) {
         return (
-            <main className="resume-page">
-                <p className="resume-message">Loading your resumes...</p>
-            </main>
+            <>
+                <Navbar />
+                <main className="resume-page">
+                    <p className="resume-message">
+                        Loading your resumes...
+                    </p>
+                </main>
+            </>
         );
     }
 
     return (
         <main className="resume-page">
-            <header className="resume-header">
-                <Link className="resume-brand" to="/dashboard">
-                    <span className="brand-mark">C</span>
-                    CareerCraft
-                </Link>
 
-                <nav className="resume-nav">
-                    <Link to="/dashboard">Dashboard</Link>
-                    <Link to="/applications">Applications</Link>
-                    <button onClick={handleLogout}>Log out</button>
-                </nav>
-            </header>
+            <Navbar />
 
             <section className="resume-content">
                 <div className="resume-heading">

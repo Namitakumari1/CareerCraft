@@ -62,6 +62,12 @@ export const authApi = {
 
     getMe: () => apiRequest("/auth/me"),
 
+    updateMe: (profileData) =>
+        apiRequest("/auth/me", {
+            method: "PUT",
+            body: JSON.stringify(profileData)
+        }),
+        
     logout: () => {
         localStorage.removeItem(TOKEN_KEY);
     },

@@ -1,5 +1,5 @@
 import express from "express";
-import { registerUser, loginUser, getCurrentUser, adminTest } from "../controllers/authController.js";
+import { registerUser, loginUser, getCurrentUser, adminTest,updateCurrentUser } from "../controllers/authController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import authorizeRoles from "../middleware/roleMiddleware.js";
 
@@ -10,6 +10,8 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 router.get("/me", authMiddleware, getCurrentUser);
+
+router.put("/me", authMiddleware, updateCurrentUser);
 
 router.get("/admin-test", authMiddleware, authorizeRoles("admin"), adminTest);
 
