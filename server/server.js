@@ -1,3 +1,4 @@
+
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -13,8 +14,27 @@ connectDB();
 
 const app = express();
 
+// Allowed frontend origins
+const allowedOrigins = [
+    process.env.CLIENT_URL,
+    "http://localhost:5174",
+].filter(Boolean);
+
 // Middleware
-app.use(cors());
+app.use(
+    cors({
+        origin: (origin, callback) => {
+            // Allow requests without an Origin header, such as
+            // direct health checks from tools or the command line.
+            if (!origin || allowedOrigins.includes(origin)) {
+                return callback(null, true);
+            }
+
+            return callback(new Error("Not allowed by CORS"));
+        },
+    })
+);
+
 app.use(express.json());
 
 // Routes
@@ -23,11 +43,11 @@ app.use("/api/resumes", resumeRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 
-// Test route
+// API health-check route
 app.get("/", (req, res) => {
     res.status(200).json({
         success: true,
-        message: "CareerCraft API is running successfully!"
+        message: "CareerCraft API is running successfully!",
     });
 });
 
