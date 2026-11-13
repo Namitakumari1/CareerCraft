@@ -16,9 +16,11 @@ const app = express();
 
 // Allowed frontend origins
 const allowedOrigins = [
+    "http://localhost:5173",
+    "https://career-craft-orpin.vercel.app",
     process.env.CLIENT_URL,
-    "http://localhost:5174",
 ].filter(Boolean);
+
 
 // Middleware
 app.use(
